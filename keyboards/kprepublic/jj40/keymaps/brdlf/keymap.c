@@ -22,11 +22,11 @@
 
 enum layers {
     _QWERTY = 0,
+    _COLEMAK
     _FUNC,
     _LOWER,
     _RAISE,
     _ADJUST,
-    _MOUSE,
     _NUMPAD
 };
 
@@ -41,14 +41,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shft |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | Func |Lower |Space | Bksp |Raise | DEL  | Bksl | NUM  | Ctrl |
+ * | Ctrl | Alt  | GUI  | Func |Lower |Space | Bksp |Raise | DEL  | RCTL | BKSL | Cole |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
-  LT(_NUMPAD, KC_ESC), KC_Q,    KC_W,    KC_E,  KC_R,   KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,        KC_ENT    ,
-  KC_TAB,              KC_A,    KC_S,    KC_D,  KC_F,   KC_G,   KC_H,    KC_J,  KC_K,    KC_L,    KC_SCLN,     KC_QUOT   ,
-  KC_LSFT,             KC_Z,    KC_X,    KC_C,  KC_V,   KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH,     KC_RSFT   ,
-  KC_LCTL,             KC_LALT, KC_LGUI, FUN,   LOWER,  KC_SPC, KC_BSPC, RAISE, KC_DEL,  KC_BSLS, TG(_NUMPAD), KC_RCTL
+  KC_ESC    KC_Q,    KC_W,    KC_E,  KC_R,   KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,        KC_ENT    ,
+  KC_TAB,   KC_A,    KC_S,    KC_D,  KC_F,   KC_G,   KC_H,    KC_J,  KC_K,    KC_L,    KC_SCLN,     KC_QUOT   ,
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,  KC_V,   KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH,     KC_RSFT   ,
+  KC_LCTL,  KC_LALT, KC_LGUI, FUN,   LOWER,  KC_SPC, KC_BSPC, RAISE, KC_DEL,  KC_RCTL, KC_BSLS,     TG(_COLEMAK)
+),
+
+/* Colemak
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc* |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;: | Ent  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Tab  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shft |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |  ,<  |  .>  |  /?  | Shft |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  | Func |Lower |Space | Bksp |Raise | DEL  | RCTL | BKSL | ____ |
+ * `-----------------------------------------------------------------------------------'
+ */
+[COLEMAK] = LAYOUT_ortho_4x12(
+  KC_ESC,   KC_Q,    KC_W,    KC_F,  KC_P,   KC_G,   KC_J,    KC_L,  KC_U,    KC_Y,    KC_SCLN,     KC_ENT    ,
+  KC_TAB,   KC_A,    KC_R,    KC_S,  KC_T,   KC_D,   KC_H,    KC_N,  KC_E,    KC_I,    KC_O,        KC_QUOT   ,
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,  KC_V,   KC_B,   KC_K,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH,     KC_RSFT   ,
+  KC_LCTL,  KC_LALT, KC_LGUI, FUN,   LOWER,  KC_SPC, KC_BSPC, RAISE, KC_DEL,  _______, KC_BSLS,     _______
 ),
 
 /* Function
@@ -71,13 +89,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |  1!  |  2@  |  3#  |  4$  |  5%  |  6^  |  7&  |  8*  |  9(  |  0)  | DEL  | Bksp |
+ * |  1!  |  2@  |  3#  |  4$  |  5%  |  6^  |  7&  | NUM7 | NUM8 | NUM9 |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |  !   |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |WrdDel|WrdBks|
+ * |  !   |   @  |   #  |   $  |   %  |   ^  |   &  | NUM4 | NUM5 | NUM6 |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift| PSCRN|  |   |  \|  |   _  |   -  |   +  |  =   |      |BL ON | BLSP |Shift |
+ * | Shift|      |      |      |      |      |   *  | NUM1 | NUM2 | NUM3 |      |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |Lower |      |      | ADJ  |      | Vol- | Vol+ | Play |
+ * |      |      |      |      |Lower |      |      | ADJ  | NUM0 |      |      | ???? |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_4x12(
@@ -117,29 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  QK_BOOT,   KC_NO,   KC_NO,   BL_ON,   BL_OFF,  KC_NO,   KC_NO,   _______,             _______,             _______,             _______, KC_DEL  ,
+  QK_BOOT,   KC_NO,   KC_NO, BL_ON,   BL_OFF,  KC_NO,   KC_NO,   _______,             _______,             _______,             _______, KC_DEL  ,
   KC_CAPS, RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, KC_NO,   KC_NO,   KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_MEDIA_PLAY_PAUSE, _______, _______ ,
   KC_NO,   RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, KC_NO,   KC_NO,   KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE,       _______, _______ ,
   _______, _______, _______, _______, _______, _______, _______, _______,             _______,             _______,             _______, _______
-),
-
-/* Mouse
- * ,-----------------------------------------------------------------------------------.
- * | ESC  |      |      |      |      |      | WH_L | WH_UP| BTN3 | WH_D | WH_R |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | ACC0 | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | ACC0 | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN |RIGHT |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_MOUSE] = LAYOUT_ortho_4x12(
-    KC_ESC ,      _______,      _______,      _______, _______, _______,   KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_BTN3, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, _______,
-    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,   _______,       KC_MS_BTN1,  KC_MS_UP,   KC_MS_BTN2,    _______,        _______,
-    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,   _______,       KC_MS_LEFT,  KC_MS_DOWN, KC_MS_RIGHT,   _______,        _______,
-    _______,      _______,      _______,      _______, _______, _______,   _______,       _______,     _______,    _______,       _______,        _______
-),
+)
 
 /* Num Pad
  * ,-----------------------------------------------------------------------------------.
@@ -163,6 +163,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user (layer_state_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    state = update_tri_layer_state(state, _FUNC, _RAISE, _MOUSE);
     return state;
 }
